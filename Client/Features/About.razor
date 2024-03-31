@@ -1,0 +1,44 @@
+﻿@page "/About"
+<PageHeader PageEnum="Client.Enums.Nav.About" />
+
+<HeadContent>
+	<link rel="canonical" href="@canonical" />
+	<meta name="keywords" content="@Keywords" />
+	<meta name="description" content="@Description" />
+	<meta name="author" content="@Author">
+	<meta name="robots" content="index, follow">
+	<meta name="theme-color" content="#ffffff">
+
+	<meta property="og:title" content="@Meta.Title" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="@BaseUrl.ProductionUrl" />
+	<meta property="og:image" prefix="" content="@TwitterImage" />
+	<meta name="og:image:alt" content="@TwitterImageAlt" />
+	<meta property="og:description" content="@Description" />
+
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@TwitterSite" />
+	<meta name="twitter:title" content="@canonical" />
+	<meta name="twitter:description" content="@Description" />
+	<meta name="twitter:image" content="@TwitterImage" />
+	<meta name="twitter:image:alt" content="@TwitterImageAlt" />
+	<meta name="twitter:url" content="@BaseUrl.ProductionUrl" />
+</HeadContent>
+
+<p>ToDo</p>
+
+@code {
+
+	private string canonical = $"{BaseUrl.ProductionUrl}{Client.Enums.Nav.About.Index}"; 
+	private const string Keywords = "A, B, C";
+	public const string Description = "AAA";
+	public const string Author = "Manny, Moe, Jack";
+
+	public const string TwitterSite = "@AAA";
+	public const string TwitterAuthor = "@AAA";
+	public const string TwitterImage = "AAA.jpg";
+	public const string TwitterImageAlt = "AAA";
+
+
+	// Ignore Spelling: Marsing og url ffffff
+}

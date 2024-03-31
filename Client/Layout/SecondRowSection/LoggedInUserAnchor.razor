@@ -1,0 +1,20 @@
+﻿@using Client.Enums
+
+<a href="@Nav.Profile.Index" class="@CssClass"
+	 title="Role: @Role; IsAdmin:@IsAdmin">
+	@((MarkupString)Name!) @((MarkupString)BlueCheck!)
+</a>
+
+
+@code {
+	[Parameter] public bool IsXsOrSm { get; set; }
+	protected string? CssClass => IsXsOrSm ? "mt-1" : "";
+
+	// ToDo: These [Parameter] should be a class/record
+	[Parameter, EditorRequired] public string? Name { get; set; }  //NameTiny
+	[Parameter, EditorRequired] public string? BlueCheck { get; set; }
+	[Parameter, EditorRequired] public bool IsAdmin { get; set; } = false;
+	//[Parameter, EditorRequired] public string? EmailAddress { get; set; }  //; Email:@EmailAddress
+	[Parameter, EditorRequired] public string? Role { get; set; }
+
+}

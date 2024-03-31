@@ -1,0 +1,31 @@
+﻿
+
+<address>
+	@((MarkupString)_address!);
+</address>
+
+
+@code {
+	[Parameter] public bool OnOneLine { get; set; } = false;
+	[Parameter] public bool UseLabel { get; set; } = false;
+
+	string? _address;
+
+	protected override void OnInitialized()
+	{
+		_address = GetAddress(OnOneLine, UseLabel);
+	}
+
+	public string GetAddress(bool onOneLine, bool useLabel)
+	{
+		return onOneLine ?
+			$"{GetLabel(useLabel)}{Address.Name}, {Client.Address.Street}, {Address.CityStateZip}"
+			:
+			$"<br /><b>{Address.Name}</b><br />{Address.Street}<br />{Address.CityStateZip}";
+	}
+
+	private string GetLabel(bool useLabel)
+	{
+		return useLabel ?	"<b>Mailing Address</b>: " : "";
+	}
+}

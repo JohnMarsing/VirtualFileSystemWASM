@@ -1,0 +1,9 @@
+﻿<PageTitle>@PageEnum.Title</PageTitle>
+
+<div class="pb-n1 mt-2 mb-3 border-bottom border-info">
+		<h2><i class="@PageEnum.Icon"></i>&nbsp;&nbsp;@PageEnum.Title</h2>
+</div>
+
+@code {
+	[Parameter, EditorRequired] public Client.Enums.Nav PageEnum { get; set; } = Client.Enums.Nav.Home;
+}

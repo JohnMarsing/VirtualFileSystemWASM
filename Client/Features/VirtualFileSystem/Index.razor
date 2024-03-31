@@ -1,0 +1,73 @@
+﻿@page "/VirtualFileSystem"
+
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+<PageHeader PageEnum="Client.Enums.Nav.VirtualFileSystem" />
+
+@* <ul>
+	<li>Inspiration: <a href="https://blazorhelpwebsite.com/ViewBlogPost/17069">Blazor WebAssembly Virtual File System Access</a> </li>
+	<li><a href="https://github.com/ADefWebserver/BlazorWebAssemblyTempFile">GitHub</a> </li>
+</ul> *@
+
+
+<div class="card bg-warning-subtle mb-2">
+	<div class="card-body">
+		<b>Status:</b> @status
+	</div>
+</div>
+
+@if (ZipFileExists)
+{
+	<div class="card mb-2 p-2 bg-primary-subtle">
+		<div class="d-grid gap-2">
+			<div class="row">
+				<div class="col-12">
+					<button class="btn btn-secondary" @onclick="UnzipFile">Unzip File To Directory</button>
+					<button class="btn btn-secondary" @onclick="DownloadZipFile">Download Zip File</button>
+					<button class="btn btn-danger" @onclick="DeleteZipFile">Delete Zip File</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+<div class="card mb-2 p-2 bg-success-subtle">
+	<div class="d-grid gap-2">
+		<div class="row">
+			<div class="col-12">
+				<button class="btn btn-info" @onclick="CountFiles">Count Directories And Files</button>
+				<button class="btn btn-primary" @onclick="CreateFiles">Create Directories And Files</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@if (FilesExist)
+{
+	<div class="card mb-2 bg-info-subtle">
+		<div class="card-body">
+			<div class="d-grid gap-2">
+				<div class="row">
+					<div class="col-12">
+						<button class="btn btn-dark" @onclick="LoadFile">Load File</button>
+						<button class="btn btn-success" @onclick="ZipTheFiles">Zip Up Files</button>
+						<button class="btn btn-danger" @onclick="ClearFiles">Clear Directories And Files</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="card-footer">
+			<div class="form-floating">
+				<textarea @bind="fileContent" class="form-control"
+									placeholder="Blah Blah Blah"
+									id="floatingTextarea2" style="height: 100px">
+											</textarea>
+				<label for="floatingTextarea2">Generated Content</label>
+			</div>
+			<button class="btn btn-success mt-2" @onclick="UpdateFiles">Update File</button>
+		</div>
+	</div>
+}

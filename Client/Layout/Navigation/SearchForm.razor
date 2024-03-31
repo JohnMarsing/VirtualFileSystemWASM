@@ -1,0 +1,24 @@
+﻿@using Blazored.Typeahead
+@using Client.Enums
+
+@* <div class="d-flex" role="search"></div> *@
+
+<BlazoredTypeahead SearchMethod="SearchNavs"
+									 TValue="Nav"
+									 TItem="Nav"
+									 Value="CurrentNav"
+									 ValueChanged="SelectedResultChanged"
+									 ValueExpression="@(() => CurrentNav)"
+									 EnableDropDown="true"
+									 MaximumSuggestions="40"
+									 MinimumLength="2"
+									 placeholder="Search">
+	<SelectedTemplate Context="mycontext">
+		@mycontext!.Title
+	</SelectedTemplate>
+	<HelpTemplate>2+ characters</HelpTemplate>
+	<ResultTemplate Context="mycontext">
+		<i class="@mycontext!.Icon"></i>&nbsp;&nbsp;@mycontext.Title
+	</ResultTemplate>
+</BlazoredTypeahead>
+

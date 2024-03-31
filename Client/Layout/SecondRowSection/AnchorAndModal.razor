@@ -1,0 +1,77 @@
+﻿@using Client.Layout.Enums
+@using Client.Layout.SecondRowSection
+
+@inject NavigationManager? NavigationManager
+
+@if (ModalIsNotShownToggle)
+{
+	<button type="button" class="@LogUiConstants.Login.ButtonCSS"
+					@onclick="ShowModal">
+		<i class="@LogUiConstants.Login.Icon"></i> <u>@LogUiConstants.Login.Title</u>
+	</button>
+}
+else
+{
+	<div class="@modalClass" style="display:@(modalOpen?"block":"none");">
+		<div class="modal-dialog @modalSize">
+			<div class="modal-content">
+				<div class="modal-header bg-light">
+					<h5 class="modal-title">@headerContent</h5>
+					<button type="button" class="btn-close" @onclick="CloseModal"></button>
+				</div>
+
+				<div class="modal-body bg-warning-subtle">
+
+					<div class="container-fluid">
+
+						<div class="row">
+							<div class="col-12">
+								<p>@detailContent</p>
+							</div>
+						</div> <!--1st row-->
+
+					</div> <!--container-fluid-->
+				</div> <!--modal-body-->
+
+				<div class="modal-footer bg-light">
+					<button type="button" class="btn btn-primary" @onclick="CloseModal">
+						Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@code {
+
+	#nullable disable
+
+	const string modalSize = "modal-sm"; // modal-xl modal-lg modal-sm
+	const string headerContent = "<== Header ==>";  
+	const string detailContent = "<== Detais ==>";
+
+	private string currentUrl;
+
+	bool modalOpen = false;
+	string modalClass = "modal";
+	bool ModalIsNotShownToggle = true;
+
+	protected void ShowModal()
+	{
+		currentUrl = NavigationManager.Uri; // NavigationManager!
+		modalOpen = true;
+		ModalIsNotShownToggle = false;
+		modalClass += " show";
+		StateHasChanged();
+	}
+
+	protected void CloseModal()
+	{
+		modalOpen = false;
+		ModalIsNotShownToggle = true;
+		modalClass = "modal";
+	}
+
+
+}

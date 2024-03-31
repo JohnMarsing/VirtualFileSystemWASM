@@ -1,0 +1,17 @@
+﻿@using Client.Enums
+
+@foreach (var item in Nav.List.ToList()
+		.Where(w => w.Value == Nav.Contact | w.Value == Nav.Profile)
+		.OrderBy(o => o.Sort))
+{
+	<a href="@item.Index" title="@item.Title"
+		 type="button" class="@CssClass">
+		<i class="@item.Icon"></i>
+		@item.Title
+	</a>
+	<span>&nbsp;</span>
+}
+
+@code {
+	[Parameter, EditorRequired] public string? CssClass { get; set; }
+}

@@ -1,0 +1,59 @@
+﻿@page "/"
+
+@using Client.Enums
+
+<PageHeader PageEnum="Client.Enums.Nav.Home" />
+<p class="p-1 fs-4 text-center">
+	<b>Shalom!</b>
+</p>
+
+
+<div class="@MediaQuery.Xs.DivClass">
+	<div class="row">
+		<div class="col-12">
+			<div class="d-grid gap-0 row-gap-2">
+				<MainBody />
+				<SidebarButtons />
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="@MediaQuery.Sm.DivClass">
+	<div class="row">
+		<div class="col-6">
+			<MainBody />
+		</div>
+		<div class="col-6">
+			<SidebarButtons />
+		</div>
+	</div>
+</div>
+
+<div class="@MediaQuery.Md.DivClass">
+	<div class="row">
+		<div class="col-7">
+			<MainBody />
+		</div>
+		<div class="col-5">
+			<SidebarButtons />
+		</div>
+	</div>
+</div>
+
+<div class="@MediaQuery.LgOrXl.DivClass">
+	<div class="row">
+
+		<div class="col-8">
+			<MainBody />
+		</div>
+
+		<div class="col-4">
+			<SidebarButtons />
+		</div>
+	</div>
+</div>
+
+@code {
+
+}

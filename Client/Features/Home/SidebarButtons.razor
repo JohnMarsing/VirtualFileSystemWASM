@@ -1,0 +1,26 @@
+﻿@using Client.Enums
+
+<div class="list-group">
+	@foreach (var item in Nav.List.ToList()
+	.Where(w => w.Value == Nav.Sitemap | w.Value == Nav.Profile)
+	.OrderBy(o => o.Sort))
+	{
+		<a href="@item.Index" title="@item.Title @HomeTitleSuffix"
+			 class="list-group-item list-group-item-info ">
+			<div class="d-flex w-100 justify-content-between">
+				<i class="@item.Icon fa-fw fa-3x" aria-hidden="true"></i>
+				<span class="fs-3 fw-semibold">@item.Title</span>
+				<span class="float-end text-info">
+					<span class="hebrew30">@HomeFloatRightHebrew</span>
+				</span>
+			</div>
+		</a>
+	}
+</div>
+
+@code {
+
+	protected string? HomeTitleSuffix = " Shalom  H7695";
+	protected string? HomeFloatRightHebrew = "שָׁלוֹם";
+
+}

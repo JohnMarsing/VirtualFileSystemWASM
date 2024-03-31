@@ -1,0 +1,27 @@
+﻿@page "/Sitemap"
+@using Microsoft.AspNetCore.Components.Web
+@using Client.Enums
+
+<PageHeader PageEnum="Client.Enums.Nav.Sitemap" />
+
+<div class="h5">
+
+	<ul class="fa-ul">
+		@foreach (var item in Nav.List.ToList()
+			.Where(w => w.IsPartOfList(PageListType.SitemapPage))
+			.OrderBy(o => o.Sort))
+		{
+			<li class="py-1">
+
+				<span class="fa-li"><i class="@item.Icon"></i></span>
+				<a href="@item.Index">
+					@item.Title
+				</a>
+
+			</li>
+		}
+	</ul>
+
+</div>
+
+

@@ -1,0 +1,52 @@
+﻿@page "/Contact"
+<PageHeader PageEnum="Client.Enums.Nav.Contact" />
+
+
+@inject ILogger<Contact>? Logger
+@inject IToastService? Toast
+
+<p>ToDo</p>
+
+<div class="card">
+	<div class="card-header">Test Logging (and Toast)</div>
+
+	<ul class="list-group list-group-flush">
+
+		<li class="list-group-item">
+			<button @onclick="ThrowExceptionButtonClick"
+							class="list-group-item list-group-item-warning">
+				<b>Throw Exception</b>
+				<i class="fas fa-chevron-right"></i>
+			</button>
+		</li>
+	</ul>
+</div>
+
+@code {
+#nullable disable
+	void ThrowExceptionButtonClick()
+	{
+		Logger!.LogInformation("Inside {Class}!{Method}", nameof(Contact), nameof(ThrowExceptionButtonClick));
+		try
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				if (i == 5)
+				{
+					throw new Exception("This is our demo exception");
+				}
+				else
+				{
+					//Logger!.LogDebug($"The value of i is {i}");
+					Logger!.LogWarning($"The value of i is {i}");
+				}
+			}
+
+		}
+		catch (Exception ex)
+		{
+			Logger!.LogError(ex, "...Exception thrown");
+			Toast!.ShowError("...Exception thrown, see the Console in your Browsers Developer Tools");
+		}
+	}
+}

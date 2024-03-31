@@ -1,0 +1,43 @@
+﻿@using Client.Layout.Navigation
+@using Client.Enums
+@using Client.Layout.SecondRowSection
+
+@inherits LayoutComponentBase
+
+@inject ILogger<MainLayout> Logger
+@inject IToastService? Toast
+
+<div class="@MediaQuery.Xs.DivClass">
+	<TopRowSection MediaQuery="@MediaQuery.Xs" /> 
+</div>
+
+<div class="@MediaQuery.Sm.DivClass">
+	<TopRowSection MediaQuery="@MediaQuery.Sm" />
+</div>
+<div class="@MediaQuery.MdOrLgOrXl.DivClass">
+	<TopRowSection MediaQuery="@MediaQuery.MdOrLgOrXl" />
+</div>
+
+<div class="d-flex justify-content-end mt-1 mx-1">
+	<div class="p-2 fs-6">
+		<AnchorAndModal />
+	</div>
+</div>
+
+<div class="container-fluid">
+	@Body
+	<BlazoredToasts Position="Blazored.Toast.Configuration.ToastPosition.TopLeft" />
+</div>
+
+<Footer />
+
+@code {
+#nullable disable
+	/*
+	protected override async Task OnInitializedAsync()
+		{
+		Logger!.LogInformation("Inside {Class}!{Method}", nameof(MainLayout), nameof(OnInitializedAsync));
+		}
+	*/
+
+}
