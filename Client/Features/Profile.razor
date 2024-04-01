@@ -8,11 +8,38 @@
 
 <h3 class="text-error">No Profile?</h3>
 
+<div class="row">
+	<div class="col-12">
+		<div class="float-end">
+		<ToggleButton CurrentBoolValue="@_isCollapsed"
+									ButtonSize="Client.Helpers.Enums.ButtonSize.Sm"
+									OnToggleSelected="@ReturnedToggle" />
+	</div>
+								</div>
+</div>
+
+@if (!_isCollapsed)
+{
+	<div class="row">
+		<div class="col-12">
+			@* <img src="https://placehold.co/600x400" class="img-fluid" /> *@
+			<img src="/images/alfred-e-newman.jpg" class="img-fluid" />
+		</div>
+	</div>
+}
 
 @code {
 
+	private bool _isCollapsed;
 
 	protected override void OnInitialized()
 	{
+		_isCollapsed = true;
+	}
+
+	private void ReturnedToggle(bool areNavItemsCollapsed)
+	{
+		_isCollapsed = areNavItemsCollapsed;
+		StateHasChanged();
 	}
 }

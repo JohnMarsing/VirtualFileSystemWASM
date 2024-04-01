@@ -1,0 +1,73 @@
+﻿@using Client.Enums
+@using Client.Layout.Navigation
+
+@inject ILogger<TopRowSectionXs> Logger
+@inject NavigationManager? NavigationManager
+
+<div class="d-flex bg-warning-subtle">
+	<div class="p-1">
+		<HomeButton />
+	</div>
+
+	<div class="p-1 flex-grow-1"><SearchForm /></div>
+
+	<div class="">
+		<ToggleButton CurrentBoolValue="@_AreNavItemsCollapsed"
+									IconIsHamburger="true"
+									ButtonSize="Client.Helpers.Enums.ButtonSize.Sm"
+									OnToggleSelected="@ReturnedToggle" />
+	</div>
+</div>
+
+
+@if (!_AreNavItemsCollapsed)
+{
+	<div class="row  bg-warning-subtle">
+		<div class="col-12">
+			<div class="ms-2">
+				<ul class="navbar-nav flex-grow-1 ">
+					@foreach (var item in Nav.List.ToList()
+							.Where(w => w.IsPartOfList(PageListType.Layout))
+							.OrderBy(o => o.Sort))
+					{
+						<li class="nav-item">
+							<button @onclick="@(() => OnClicked(item.Index))" class="nav-link">
+								<i class="@item.Icon"></i> @item.Title
+							</button>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+}
+
+
+@code {
+	private bool _AreNavItemsCollapsed;
+
+	protected override void OnInitialized()
+	{
+		_AreNavItemsCollapsed = true;
+		Logger!.LogDebug("{Class}!{MethodCallBack}; AreNavItemsCollapsed: {_AreNavItemsCollapsed}"
+		, nameof(TopRowSectionXs), nameof(OnInitialized), _AreNavItemsCollapsed);
+	}
+
+	private void OnClicked(string index)
+	{
+		_AreNavItemsCollapsed = true;
+		StateHasChanged();
+		NavigationManager!.NavigateTo(index);
+	}
+
+	#region EventCallbacks
+	private void ReturnedToggle(bool areNavItemsCollapsed)
+	{
+		Logger!.LogDebug("{Class}!{MethodCallBack}; AreNavItemsCollapsed: {areNavItemsCollapsed}"
+		, nameof(TopRowSectionXs), nameof(ReturnedToggle), areNavItemsCollapsed);
+
+		_AreNavItemsCollapsed = areNavItemsCollapsed;
+		StateHasChanged();
+	}
+	#endregion
+}

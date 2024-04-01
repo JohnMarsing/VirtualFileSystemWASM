@@ -1,66 +1,29 @@
-﻿@using Client.Enums
-@using Client.Layout.Navigation
+﻿@using Client.Layout.Navigation
+@using Client.Enums
 
 <div class="d-flex bg-warning-subtle">
 	<div class="p-1">
-		<HomeButton CssClass="@cssHomeButtonClass" />
+		<HomeButton />
 	</div>
+	<div class="p-1 flex-grow-1">
+		<SearchForm />
+	</div>
+	<div class="p-1">
 
-	@if (MediaQuery!.Value == @MediaQuery.Xs)
-	{
-@* 		<div class="p-1 flex-grow-1">
-			<SearchForm />
-		</div> *@
-
-		
-			<ToggleCollapseXs CollapseNavMenu="true">
-				<AnchorButtons />
-			</ToggleCollapseXs>
-		
-	}
-	else
-	{
-		<div class="p-1 flex-grow-1">
-			<SearchForm />
-		</div>
-		<div class="p-1">
-			<AnchorButtonsSmMdLgXl CssClass="@cssAnchorButtonsClass" />
-		</div>
-	}
-
-
+		@foreach (var item in Nav.List.ToList()
+			.Where(w => w.Value == Nav.Contact | w.Value == Nav.Profile)
+			.OrderBy(o => o.Sort))
+		{
+			<a href="@item.Index" title="@item.Title"
+				 type="button" class="btn btn-secondary btn-sm">
+				<i class="@item.Icon"></i>
+				@item.Title
+			</a>
+			<span>&nbsp;</span>
+		}
+	</div>
 </div>
 
 @code {
-	[Parameter, EditorRequired] public MediaQuery? MediaQuery { get; set; }
-	[Parameter] public string? ButtonColor { get; set; }
-	[Parameter] public string? ButtonSize { get; set; }
 
-	protected string? cssHomeButtonClass;
-	protected string? cssAnchorButtonsClass;
-
-	protected override void OnParametersSet()
-	{
-		if (MediaQuery == MediaQuery.Xs | MediaQuery == MediaQuery.Sm)
-		{
-			cssHomeButtonClass = $"btn {Anchors.BtnColors.Secondary} {ButtonSize ?? Anchors.BtnSize.Sm}";
-		}
-		else
-		{
-			cssHomeButtonClass = $"btn {Anchors.BtnColors.Secondary} {ButtonSize ?? Anchors.BtnSize.Lg}";
-		}
-
-
-		if (MediaQuery == MediaQuery.Sm)
-		{
-			cssAnchorButtonsClass = $"btn {ButtonColor ?? Anchors.BtnColors.Secondary} {ButtonSize ?? Anchors.BtnSize.Sm}";
-		}
-		else
-		{
-			if (MediaQuery != MediaQuery.Xs)
-			{
-			cssAnchorButtonsClass = $"btn {ButtonColor ?? Anchors.BtnColors.Secondary} {ButtonSize ?? Anchors.BtnSize.Lg}";		
-			}
-		}
-	}
 }

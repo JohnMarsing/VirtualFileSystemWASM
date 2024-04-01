@@ -1,11 +1,10 @@
 ﻿@using Client.Layout.Navigation
 
-
 @inject ILogger<ToggleButton> Logger
 
 <button class="btn @_buttonSize @_buttonColor!"
 				@onclick="ButtonClicked" title="@_title">
-	<i class="@_iconSize @_iconToggle"></i>
+	<i class="@_iconSize @_icon"></i>
 </button>
 
 
@@ -16,28 +15,31 @@
 	[Parameter] public Client.Helpers.Enums.ButtonSize ButtonSize { get; set; }
 	[Parameter] public string ButtonColorSelected { get; set; } = Anchors.BtnColors.Dark;
 	[Parameter]	public string ButtonColorUnSelected { get; set; } = Anchors.BtnColors.Secondary;
+	[Parameter] public string Title { get; set; } = string.Empty;
+	[Parameter] public bool IconIsHamburger { get; set; } = false;
 
 	public bool _currentBoolValue { get; set; }
 	protected string? _buttonSize; // btn-lg" : "btn-sm";
 	protected string? _buttonColor;
 	protected string? _iconSize;
+	protected string? _icon;
 	protected string? _title;
-	protected string? _iconToggle;
 
 	protected override void OnParametersSet()
 	{
-		Logger!.LogInformation("Inside razor {Class}{MethodEvent}; CurrentBoolValue: {CurrentBoolValue}"
+		Logger!.LogInformation("{Class}!{MethodEvent}; CurrentBoolValue: {CurrentBoolValue}"
 		, nameof(ToggleButton), nameof(OnParametersSet), CurrentBoolValue);
 		_currentBoolValue = CurrentBoolValue;
 
 		_buttonSize = Client.Helpers.ButtonCss.Size(ButtonSize); 
 		_iconSize = Client.Helpers.ButtonCss.IconSize(ButtonSize);
+		_title = Title;
 		UpdateUI();
 	}
 
 	private void ButtonClicked()
 	{
-		Logger!.LogInformation("Inside razor {Class}{MethodEvent}; _isDarkMode: {_isDarkMode}"
+		Logger!.LogInformation("razor {Class}{MethodEvent}; CurrentBoolValue: {_currentBoolValue}"
 		, nameof(ToggleButton), nameof(ButtonClicked), _currentBoolValue);
 		OnToggleSelected.InvokeAsync(!_currentBoolValue); // flip the boolean value
 	}
@@ -45,11 +47,16 @@
 	private void UpdateUI()
 	{
 		_buttonColor = _currentBoolValue! ? Anchors.BtnColors.Dark! : Anchors.BtnColors.Secondary!;
-		_iconToggle = _currentBoolValue! ? "fas fa-toggle-on" : "fas fa-toggle-off";
-		_title = _currentBoolValue! ? "Click to change Dark Mode to OFF" : "Click to change Dark Mode to ON";
+
+		if (IconIsHamburger)
+		{
+			_icon = "fas fa-bars";
+		}
+		else
+		{
+			_icon = _currentBoolValue! ? "fas fa-toggle-on" : "fas fa-toggle-off";
+		}		
 	}
-
-
 
 }
 

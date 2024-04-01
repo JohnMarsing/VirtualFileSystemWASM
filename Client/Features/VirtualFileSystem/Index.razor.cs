@@ -47,9 +47,7 @@ public partial class Index
 
 			catch (Exception ex)
 			{
-				Logger!.LogError(ex, "{Class}!{Method}."
-					, nameof(Index), nameof(OnAfterRenderAsync));
-
+				Logger!.LogError(ex, "{Class}!{Method}.", nameof(Index), nameof(OnAfterRenderAsync));
 				Toast!.ShowError("...Exception thrown, see the Console in your Browsers Developer Tools");
 			}
 
